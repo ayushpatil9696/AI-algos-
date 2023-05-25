@@ -14,7 +14,7 @@ def dijkstra(graph, start, visited, distance):
                 heappush(bag, [distance[n]+ cd, cn])
 
     print(distance) 
-
+#weight,node
 edges = [[1,3,2], [1, 2, 1], [2, 3, 1], [2, 5, 1],[3, 4, 2], [5,4, 5]]
 n = 5
 graph    =  {}
