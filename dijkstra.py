@@ -29,6 +29,8 @@ for i in range(1, n+1):
 for u,v,d in edges:
     graph[u].append([d, v])
     graph[v].append([d, u])
+    
+print(graph)    
 
 start = 1
 dijkstra(graph, start, visited, distance)
