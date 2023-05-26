@@ -1,37 +1,39 @@
-def bipartite(graph, node, visited, color, c):
-    visited[node] = 1
-    color[node] = c
-    for child in graph[node]:
-        if not visited[child]:
-            tmp = bipartite(graph, child, visited, color, c^1)
-            if tmp == False:
-                return False
-        else :
-            if color[node] == color[child]:
-                return False 
-    return True
+def graph_coloring(current_vertex):
+    global result
 
-# canot be colored 
-edges = [[1, 2], [2, 4], [4, 3], [3, 1], [2, 5], [4, 5]]
-n = 5
+    # Base case: All vertices are colored
+    if current_vertex > n:
+        result = True
+        return
 
-# can be colored 
-# edges = [[1, 2], [2, 3], [3, 6], [6, 5], [5, 4], [1, 4]]
-# n = 6
+    for color in colors:
+        is_valid_color = True
+        for neighbor in graph[current_vertex]:
+            if coloring[neighbor] == color:
+                is_valid_color = False
+                break
 
+        if is_valid_color:
+            coloring[current_vertex] = color
+            graph_coloring(current_vertex + 1)
+            if result:
+                return
 
-graph = {}
-visited  = {}
-color = {}
+            # Backtrack
+            coloring[current_vertex] = None
 
-for i in range(1, n+1):
-    graph[i] = []
-    visited[i] = 0
-    color[i] = None
+# Define graph, colors, and other variables
 
-for u,v in edges:
-    graph[u].append(v)
-    graph[v].append(u)
+n = 6
+graph = {1: [2, 4], 2: [1, 3, 5], 3: [2, 6], 4: [1, 5], 5: [2, 4], 6: [3]}
+colors = ['Red', 'Blue', 'Green']
+coloring = {i: None for i in range(1, n + 1)}
+result = False
 
-temp  = bipartite(graph, 1, visited, color, 0)
-print(temp)
+# Start with the first vertex
+graph_coloring(1)
+
+if result:
+    print("Valid graph coloring exists.")
+else:
+    print("No valid graph coloring exists.")
